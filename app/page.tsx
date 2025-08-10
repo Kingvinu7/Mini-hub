@@ -12,7 +12,6 @@ type Miniapp = {
 
 export default function Home() {
   const [user, setUser] = useState<any | null>(null);
-  const [hoveredApp, setHoveredApp] = useState<number | null>(null);
 
   const miniapps: Miniapp[] = [
     {
@@ -124,8 +123,7 @@ export default function Home() {
               key={i}
               className="group relative animate-slide-up backdrop-blur-md bg-white/10 rounded-3xl p-6 border border-white/20 shadow-2xl hover:shadow-3xl hover:bg-white/15 transition-all duration-500 transform hover:scale-102 hover:-translate-y-1"
               style={{ animationDelay: `${i * 100}ms` }}
-              onMouseEnter={() => setHoveredApp(i)}
-              onMouseLeave={() => setHoveredApp(null)}
+
             >
               {/* Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-purple-400/0 to-pink-400/0 group-hover:from-blue-400/10 group-hover:via-purple-400/10 group-hover:to-pink-400/10 rounded-3xl transition-all duration-500"></div>
@@ -143,13 +141,6 @@ export default function Home() {
                       }}
                     />
                   </div>
-                  {hoveredApp === i && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 bg-green-400 rounded-full border-2 border-white shadow-lg animate-bounce">
-                      <svg className="w-full h-full text-white" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
-                      </svg>
-                    </div>
-                  )}
                 </div>
 
                 {/* App Details */}
