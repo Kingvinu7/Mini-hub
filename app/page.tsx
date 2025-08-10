@@ -1,103 +1,135 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
+import { sdk, User } from "@farcaster/miniapp-sdk";
+
+type Miniapp = {
+  name: string;
+  url: string;
+  icon: string;
+  desc: string;
+};
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [user, setUser] = useState<User | null>(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const miniapps: Miniapp[] = [
+    {
+      name: "FC Tap Game",
+      url: "https://farcaster.xyz/miniapps/jcV0ojRAzBKZ/fc-tap-game",
+      icon: "https://fc-taps.vercel.app/icon.png",
+      desc: "A miniapp to test your finger speeds, tap as much as you can in 15 Seconds"
+    },
+    {
+      name: "Farscan",
+      url: "https://farcaster.xyz/miniapps/9GKmp-8gSzi_/farscan",
+      icon: "https://farscan.replit.app/icon.png",
+      desc: "A miniapp to Check your simple Base transaction history directly in Farcaster. No browser required."
+    },
+    {
+      name: "Cast-it-Fast",
+      url: "https://farcaster.xyz/miniapps/Y6Z-3Zz-bf_T/cast-it-fast",
+      icon: "https://cast-it-fast.vercel.app/app-icon.png",
+      desc: "A miniapp of a fast-paced trivia game with 3 rounds and 15 questions. Cast your answer fast."
+    },
+    {
+      name: "Feed The Snake",
+      url: "https://farcaster.xyz/miniapps/qloEP_2uNhBO/feed-the-snake",
+      icon: "https://feed-the-snake-six.vercel.app/icon.png",
+      desc: "A miniapp to play the old classic Snake Game with modern neon vibes."
+    },
+    {
+      name: "Sloto Caster",
+      url: "https://farcaster.xyz/miniapps/q48CMd_Ss_iF/sloto-caster",
+      icon: "https://sloto-caster.vercel.app/logo.png",
+      desc: "A miniapp to test your luck, slot machine game on base network, try spinning and win Eth now."
+    }
+  ];
+
+  useEffect(() => {
+    sdk.context.then(ctx => setUser(ctx.user)).catch(console.error);
+  }, []);
+
+  return (
+    <div
+      style={{
+        fontFamily: "system-ui, sans-serif",
+        padding: 20,
+        maxWidth: 500,
+        margin: "0 auto"
+      }}
+    >
+      <h1>Mini-Hub</h1>
+      <p style={{ color: "#444", marginBottom: 20 }}>
+        Welcome to Mini-Hub — your mini app store for quick access to my awesome Farcaster miniapps. Tap to open and explore!
+      </p>
+
+      <button
+        onClick={() => sdk.actions.openUrl("https://farcaster.xyz/vinu07")}
+        style={{
+          backgroundColor: "#06f",
+          color: "#fff",
+          border: "none",
+          borderRadius: 8,
+          padding: "10px 18px",
+          fontWeight: "bold",
+          cursor: "pointer",
+          marginBottom: 30,
+          width: "100%"
+        }}
+      >
+        Follow Me on Farcaster
+      </button>
+
+      {user && <p style={{ color: "#666", marginBottom: 20 }}>Hi, {user.displayName} 👋</p>}
+
+      {miniapps.map((app, i) => (
+        <div
+          key={i}
+          style={{
+            border: "1px solid #e0e0e0",
+            borderRadius: 12,
+            padding: 15,
+            marginBottom: 15,
+            background: "#fff",
+            textAlign: "center"
+          }}
+        >
+          <img
+            src={app.icon}
+            alt={`${app.name} icon`}
+            style={{
+              width: 64,
+              height: 64,
+              objectFit: "contain",
+              marginBottom: 10
+            }}
+          />
+          <div style={{ fontSize: 16, fontWeight: 500, marginBottom: 6 }}>
+            {app.name}
+          </div>
+          <div style={{ fontSize: 13, color: "#555", marginBottom: 10 }}>
+            {app.desc}
+          </div>
+          <button
+            style={{
+              marginTop: 5,
+              padding: "10px 16px",
+              background: "#7c3aed",
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: 14,
+              border: "none",
+              borderRadius: 8,
+              width: "100%",
+              cursor: "pointer"
+            }}
+            onClick={() => sdk.actions.openUrl(app.url)}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Open
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      ))}
     </div>
   );
 }
