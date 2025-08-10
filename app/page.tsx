@@ -162,7 +162,7 @@ export default function Home() {
                     className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group-hover:shadow-purple-500/25 cursor-pointer relative z-10"
                   >
                     <span className="flex items-center justify-center gap-2">
-                      Launch App
+                      Launch MiniApp
                       <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
@@ -178,7 +178,7 @@ export default function Home() {
         <div className="text-center mt-12 animate-fade-in">
           <div className="inline-block px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-white/10">
             <p className="text-white/60 text-sm">
-              Powered by <span className="text-blue-300 font-semibold">Farcaster</span> • Made with ❤️
+              Powered by <span className="text-blue-300 font-semibold">Farcaster</span> • Made for Farcaster 💜
             </p>
           </div>
         </div>
