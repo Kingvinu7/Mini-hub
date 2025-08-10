@@ -154,8 +154,12 @@ export default function Home() {
                   
                   {/* Open Button */}
                   <button
-                    onClick={() => sdk.actions.openUrl(app.url)}
-                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group-hover:shadow-purple-500/25"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      sdk.actions.openUrl(app.url);
+                    }}
+                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group-hover:shadow-purple-500/25 cursor-pointer relative z-10"
                   >
                     <span className="flex items-center justify-center gap-2">
                       Launch App
