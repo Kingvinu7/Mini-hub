@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { sdk, User } from "@farcaster/miniapp-sdk";
+import { sdk } from "@farcaster/miniapp-sdk";
 
 type Miniapp = {
   name: string;
@@ -11,7 +11,7 @@ type Miniapp = {
 };
 
 export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any | null>(null);
 
   const miniapps: Miniapp[] = [
     {
@@ -47,7 +47,9 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    sdk.context.then(ctx => setUser(ctx.user)).catch(console.error);
+    sdk.context
+      .then(ctx => setUser(ctx.user))
+      .catch(console.error);
   }, []);
 
   return (
