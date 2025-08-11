@@ -50,31 +50,24 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    // Initialize Farcaster SDK
     const initSDK = async () => {
       try {
-        // Initialize SDK - signal that miniapp is ready
         sdk.actions.ready();
         
-        // Your actual splash image
         const yourSplashImageUrl = "https://mini-hub-six.vercel.app/splash-image.png";
         setSplashImageUrl(yourSplashImageUrl);
 
-        // Get user context
         const ctx = await sdk.context;
         setUser(ctx.user);
 
-        // Start explosion effect after SDK is ready
         setTimeout(() => {
           setShowExplosion(true);
-          // After explosion, show main content
           setTimeout(() => {
             setAppReady(true);
           }, 1200);
         }, 300);
       } catch (error) {
         console.error('SDK initialization failed:', error);
-        // Fallback: still show the app even if SDK fails
         setAppReady(true);
       }
     };
@@ -84,10 +77,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-      {/* Splash Screen Explosion - fragments the actual splash image */}
       {showExplosion && !appReady && splashImageUrl && (
         <div className="fixed inset-0 z-50 pointer-events-none bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
-          {/* 5 Fragments of the splash screen image */}
           {[...Array(5)].map((_, i) => (
             <div
               key={i}
@@ -98,19 +89,17 @@ export default function Home() {
                 transform: 'translate(-50%, -50%)',
                 backgroundImage: `url(${splashImageUrl})`,
                 backgroundSize: '400px 400px',
-                backgroundPosition: i === 0 ? '-60px -60px' : // Top-left fragment
-                                  i === 1 ? '-140px -60px' : // Top-right fragment  
-                                  i === 2 ? '-60px -140px' : // Bottom-left fragment
-                                  i === 3 ? '-140px -140px' : // Bottom-right fragment
-                                  '-100px -100px', // Center fragment
+                backgroundPosition: i === 0 ? '-60px -60px' : 
+                                  i === 1 ? '-140px -60px' : 
+                                  i === 2 ? '-60px -140px' : 
+                                  i === 3 ? '-140px -140px' : 
+                                  '-100px -100px',
               }}
             >
-              {/* Glitch effect overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-glitch"></div>
             </div>
           ))}
           
-          {/* Shatter lines effect */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             {[...Array(8)].map((_, i) => (
               <div
@@ -124,138 +113,126 @@ export default function Home() {
             ))}
           </div>
           
-          {/* Central flash effect */}
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full animate-flash-center"></div>
         </div>
       )}
 
-      {/* Main App Content - shows after explosion */}
-      <div className={`transition-opacity duration-1000 ${appReady ? 'opacity-100' : 'opacity-0'}`}>{/* Animated Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
-        <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000"></div>
-      </div>
-      
-      {/* Floating Particles */}
-      {[...Array(20)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute animate-float opacity-30"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            animationDuration: `${3 + Math.random() * 4}s`
-          }}
-        >
-          <div className="w-1 h-1 bg-white rounded-full shadow-lg"></div>
+      <div className={`transition-opacity duration-1000 ${appReady ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
+          <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000"></div>
         </div>
-      ))}
-
-      <div className="relative z-10 max-w-md mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="text-center mb-8 animate-fade-in">
-          <div className="inline-block p-4 mb-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl">
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
-              Mini-Hub
-            </h1>
+        
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute animate-float opacity-30"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          >
+            <div className="w-1 h-1 bg-white rounded-full shadow-lg"></div>
           </div>
-          <p className="text-white/80 text-lg leading-relaxed mb-6">
-            Welcome to <span className="text-blue-300 font-semibold">Mini-Hub</span> — showcasing the 5 miniapps 
-            I've built for Farcaster. Simple, fun, and ready to play! ✨
-          </p>
-        </div>
+        ))}
 
-        {/* Follow Button */}
-        <button
-          onClick={() => sdk.actions.openUrl("https://farcaster.xyz/vinu07")}
-          className="w-full mb-8 group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
-          <span className="relative flex items-center justify-center gap-2">
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
-            </svg>
-            Follow Me on Farcaster
-          </span>
-        </button>
-
-        {/* User Greeting */}
-        {user && (
-          <div className="text-center mb-8 animate-slide-in">
-            <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
-              <p className="text-white/90 font-medium">
-                Hi, <span className="text-blue-300">{user.displayName}</span> 👋
-              </p>
+        <div className="relative z-10 max-w-md mx-auto px-6 py-8">
+          <div className="text-center mb-8 animate-fade-in">
+            <div className="inline-block p-4 mb-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+                Mini-Hub
+              </h1>
             </div>
+            <p className="text-white/80 text-lg leading-relaxed mb-6">
+              Welcome to <span className="text-blue-300 font-semibold">Mini-Hub</span> — showcasing the 5 miniapps 
+              I've built for Farcaster. Simple, fun, and ready to play! ✨
+            </p>
           </div>
-        )}
 
-        {/* Mini Apps Grid */}
-        <div className="space-y-4">
-          {miniapps.map((app, i) => (
-            <div
-              key={i}
-              className="group relative animate-slide-up backdrop-blur-md bg-white/10 rounded-3xl p-6 border border-white/20 shadow-2xl hover:shadow-3xl hover:bg-white/15 transition-all duration-500 transform hover:scale-102 hover:-translate-y-1"
-              style={{ animationDelay: `${i * 100}ms` }}
+          <button
+            onClick={() => sdk.actions.openUrl("https://farcaster.xyz/vinu07")}
+            className="w-full mb-8 group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/25"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-700"></div>
+            <span className="relative flex items-center justify-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+              </svg>
+              Follow Me on Farcaster
+            </span>
+          </button>
 
-            >
-              {/* Glow Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-purple-400/0 to-pink-400/0 group-hover:from-blue-400/10 group-hover:via-purple-400/10 group-hover:to-pink-400/10 rounded-3xl transition-all duration-500"></div>
-              
-              <div className="relative flex items-start space-x-4">
-                {/* App Icon */}
-                <div className="relative flex-shrink-0">
-                  <div className="w-16 h-16 bg-white/20 rounded-2xl p-2 group-hover:bg-white/30 transition-all duration-300 shadow-lg">
-                    <img
-                      src={app.icon}
-                      alt={`${app.name} icon`}
-                      className="w-full h-full object-contain rounded-xl"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiM2MzY2RjEiLz4KPHN2ZyB4PSIxNiIgeT0iMTYiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyek0xMyAxN2gtMnYtNmgydjZ6bTAtOGgtMlY3aDJ2MnoiLz4KPC9zdmc+Cjwvc3ZnPgo=';
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* App Details */}
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-300">
-                    {app.name}
-                  </h3>
-                  <p className="text-white/70 text-sm leading-relaxed mb-4 group-hover:text-white/90 transition-colors duration-300">
-                    {app.desc}
-                  </p>
-                  
-                  {/* Open Button */}
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      sdk.actions.openUrl(app.url);
-                    }}
-                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group-hover:shadow-purple-500/25 cursor-pointer relative z-10"
-                  >
-                    <span className="flex items-center justify-center gap-2">
-                      Launch App
-                      <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    </span>
-                  </button>
-                </div>
+          {user && (
+            <div className="text-center mb-8 animate-slide-in">
+              <div className="inline-block px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
+                <p className="text-white/90 font-medium">
+                  Hi, <span className="text-blue-300">{user.displayName}</span> 👋
+                </p>
               </div>
             </div>
-          ))}
-        </div>
+          )}
 
-        {/* Footer */}
-        <div className="text-center mt-12 animate-fade-in">
-          <div className="inline-block px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-white/10">
-            <p className="text-white/60 text-sm">
-              Powered by <span className="text-blue-300 font-semibold">Farcaster</span> • Made with ❤️
-            </p>
+          <div className="space-y-4">
+            {miniapps.map((app, i) => (
+              <div
+                key={i}
+                className="group relative animate-slide-up backdrop-blur-md bg-white/10 rounded-3xl p-6 border border-white/20 shadow-2xl hover:shadow-3xl hover:bg-white/15 transition-all duration-500 transform hover:scale-102 hover:-translate-y-1"
+                style={{ animationDelay: `${i * 100}ms` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-purple-400/0 to-pink-400/0 group-hover:from-blue-400/10 group-hover:via-purple-400/10 group-hover:to-pink-400/10 rounded-3xl transition-all duration-500"></div>
+                
+                <div className="relative flex items-start space-x-4">
+                  <div className="relative flex-shrink-0">
+                    <div className="w-16 h-16 bg-white/20 rounded-2xl p-2 group-hover:bg-white/30 transition-all duration-300 shadow-lg">
+                      <img
+                        src={app.icon}
+                        alt={`${app.name} icon`}
+                        className="w-full h-full object-contain rounded-xl"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiM2MzY2RjEiLz4KPHN2ZyB4PSIxNiIgeT0iMTYiIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJ3aGl0ZSI+CjxwYXRoIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyek0xMyAxN2gtMnYtNmgydjZ6bTAtOGgtMlY3aDJ2MnoiLz4KPC9zdmc+Cjwvc3ZnPgo=';
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-200 transition-colors duration-300">
+                      {app.name}
+                    </h3>
+                    <p className="text-white/70 text-sm leading-relaxed mb-4 group-hover:text-white/90 transition-colors duration-300">
+                      {app.desc}
+                    </p>
+                    
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        sdk.actions.openUrl(app.url);
+                      }}
+                      className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group-hover:shadow-purple-500/25 cursor-pointer relative z-10"
+                    >
+                      <span className="flex items-center justify-center gap-2">
+                        Launch App
+                        <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12 animate-fade-in">
+            <div className="inline-block px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-white/10">
+              <p className="text-white/60 text-sm">
+                Powered by <span className="text-blue-300 font-semibold">Farcaster</span> • Made with ❤️
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -277,6 +254,50 @@ export default function Home() {
           from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes pulse-slow {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+        }
+        @keyframes fade-in-content {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes flash-center {
+          0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+          50% { transform: translate(-50%, -50%) scale(100); opacity: 0.8; }
+          100% { transform: translate(-50%, -50%) scale(200); opacity: 0; }
+        }
+        @keyframes crack {
+          0% { opacity: 0; transform: scale(0); }
+          50% { opacity: 1; transform: scale(1); }
+          100% { opacity: 0; transform: scale(1.5); }
+        }
+        @keyframes glitch {
+          0%, 100% { transform: translateX(0); opacity: 0.7; }
+          25% { transform: translateX(-2px); opacity: 0.9; }
+          50% { transform: translateX(2px); opacity: 0.5; }
+          75% { transform: translateX(-1px); opacity: 0.8; }
+        }
+        @keyframes explode-1 {
+          0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+          100% { transform: translate(-300px, -300px) scale(0.2) rotate(360deg); opacity: 0; }
+        }
+        @keyframes explode-2 {
+          0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+          100% { transform: translate(300px, -300px) scale(0.2) rotate(-360deg); opacity: 0; }
+        }
+        @keyframes explode-3 {
+          0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+          100% { transform: translate(-350px, 250px) scale(0.15) rotate(540deg); opacity: 0; }
+        }
+        @keyframes explode-4 {
+          0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+          100% { transform: translate(350px, 250px) scale(0.15) rotate(-540deg); opacity: 0; }
+        }
+        @keyframes explode-5 {
+          0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+          100% { transform: translate(0px, 400px) scale(0.1) rotate(720deg); opacity: 0; }
+        }
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
@@ -289,6 +310,36 @@ export default function Home() {
         .animate-slide-up {
           animation: slide-up 0.6s ease-out forwards;
           opacity: 0;
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 2s ease-in-out infinite;
+        }
+        .animate-fade-in-content {
+          animation: fade-in-content 1s ease-out;
+        }
+        .animate-explode-1 {
+          animation: explode-1 1s ease-out forwards;
+        }
+        .animate-explode-2 {
+          animation: explode-2 1s ease-out forwards;
+        }
+        .animate-explode-3 {
+          animation: explode-3 1s ease-out forwards;
+        }
+        .animate-explode-4 {
+          animation: explode-4 1s ease-out forwards;
+        }
+        .animate-explode-5 {
+          animation: explode-5 1s ease-out forwards;
+        }
+        .animate-flash-center {
+          animation: flash-center 1s ease-out forwards;
+        }
+        .animate-crack {
+          animation: crack 0.6s ease-out forwards;
+        }
+        .animate-glitch {
+          animation: glitch 0.3s ease-in-out infinite;
         }
         .hover\\:scale-102:hover {
           transform: scale(1.02);
