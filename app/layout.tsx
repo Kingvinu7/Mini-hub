@@ -1,14 +1,39 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Mini-Hub",
-  description: "A simple hub to access all my Farcaster miniapps",
-  url: "https://mini-hub-six.vercel.app", // replace with your deployed URL
-  image: "https://mini-hub-six.vercel.app/icon.png", // your Mini-Hub icon or OG image
-  author: "vinu07",
+  description: "Showcasing the 5 miniapps I've built for Farcaster. Simple, fun, and ready to play!",
+  openGraph: {
+    title: "Mini-Hub",
+    description: "Showcasing the 5 miniapps I've built for Farcaster. Simple, fun, and ready to play!",
+    url: "https://mini-hub-six.vercel.app",
+    images: [
+      {
+        url: "https://mini-hub-six.vercel.app/splash-image.png", // Use your splash image as preview
+        width: 1200,
+        height: 630,
+        alt: "Mini-Hub - 5 Farcaster Miniapps"
+      }
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mini-Hub",
+    description: "Showcasing the 5 miniapps I've built for Farcaster. Simple, fun, and ready to play!",
+    images: ["https://mini-hub-six.vercel.app/splash-image.png"],
+  },
+  icons: {
+    icon: "https://mini-hub-six.vercel.app/favicon.ico",
+  },
+  other: {
+    "farcaster:miniapp": "true",
+    "farcaster:author": "vinu07",
+  },
 };
 
 export default function RootLayout({
@@ -18,39 +43,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.className}>
-      <head>
-        {/* Farcaster specific */}
-        <meta name="farcaster:miniapp" content="true" />
-        <meta name="farcaster:author" content={metadata.author} />
-
-        {/* Basic */}
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content={metadata.description} />
-        <meta name="author" content={metadata.author} />
-
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={metadata.url} />
-        <meta property="og:title" content={metadata.title} />
-        <meta property="og:description" content={metadata.description} />
-        <meta property="og:image" content={metadata.image} />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={metadata.url} />
-        <meta name="twitter:title" content={metadata.title} />
-        <meta name="twitter:description" content={metadata.description} />
-        <meta name="twitter:image" content={metadata.image} />
-
-        {/* Favicon */}
-        <link
-          rel="icon"
-          href={metadata.image}
-          type="image/png"
-        />
-        <title>{metadata.title}</title>
-      </head>
       <body>{children}</body>
     </html>
   );
