@@ -12,6 +12,9 @@ type Miniapp = {
 
 export default function Home() {
   const [user, setUser] = useState<any | null>(null);
+  const [showExplosion, setShowExplosion] = useState(false);
+  const [appReady, setAppReady] = useState(false);
+  const [splashImageUrl, setSplashImageUrl] = useState<string>('');
 
   const miniapps: Miniapp[] = [
     {
@@ -47,14 +50,87 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    sdk.context
-      .then(ctx => setUser(ctx.user))
-      .catch(console.error);
+    // Initialize Farcaster SDK
+    const initSDK = async () => {
+      try {
+        // Initialize SDK - signal that miniapp is ready
+        sdk.actions.ready();
+        
+        // Your actual splash image
+        const yourSplashImageUrl = "https://mini-hub-six.vercel.app/splash-image.png";
+        setSplashImageUrl(yourSplashImageUrl);
+
+        // Get user context
+        const ctx = await sdk.context;
+        setUser(ctx.user);
+
+        // Start explosion effect after SDK is ready
+        setTimeout(() => {
+          setShowExplosion(true);
+          // After explosion, show main content
+          setTimeout(() => {
+            setAppReady(true);
+          }, 1200);
+        }, 300);
+      } catch (error) {
+        console.error('SDK initialization failed:', error);
+        // Fallback: still show the app even if SDK fails
+        setAppReady(true);
+      }
+    };
+
+    initSDK();
   }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
-      {/* Animated Background Elements */}
+      {/* Splash Screen Explosion - fragments the actual splash image */}
+      {showExplosion && !appReady && splashImageUrl && (
+        <div className="fixed inset-0 z-50 pointer-events-none bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+          {/* 5 Fragments of the splash screen image */}
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className={`absolute w-32 h-32 animate-explode-${i + 1} overflow-hidden rounded-lg shadow-2xl`}
+              style={{
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                backgroundImage: `url(${splashImageUrl})`,
+                backgroundSize: '400px 400px',
+                backgroundPosition: i === 0 ? '-60px -60px' : // Top-left fragment
+                                  i === 1 ? '-140px -60px' : // Top-right fragment  
+                                  i === 2 ? '-60px -140px' : // Bottom-left fragment
+                                  i === 3 ? '-140px -140px' : // Bottom-right fragment
+                                  '-100px -100px', // Center fragment
+              }}
+            >
+              {/* Glitch effect overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-glitch"></div>
+            </div>
+          ))}
+          
+          {/* Shatter lines effect */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-1 h-32 bg-white animate-crack"
+                style={{
+                  transform: `rotate(${i * 45}deg)`,
+                  transformOrigin: 'bottom center',
+                }}
+              ></div>
+            ))}
+          </div>
+          
+          {/* Central flash effect */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full animate-flash-center"></div>
+        </div>
+      )}
+
+      {/* Main App Content - shows after explosion */}
+      <div className={`transition-opacity duration-1000 ${appReady ? 'opacity-100' : 'opacity-0'}`}>{/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse"></div>
         <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000"></div>
@@ -162,7 +238,7 @@ export default function Home() {
                     className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl group-hover:shadow-purple-500/25 cursor-pointer relative z-10"
                   >
                     <span className="flex items-center justify-center gap-2">
-                      Launch MiniApp
+                      Launch App
                       <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
@@ -178,7 +254,7 @@ export default function Home() {
         <div className="text-center mt-12 animate-fade-in">
           <div className="inline-block px-6 py-3 bg-white/5 backdrop-blur-md rounded-full border border-white/10">
             <p className="text-white/60 text-sm">
-              Powered by <span className="text-blue-300 font-semibold">Farcaster</span> • Made for Farcaster 💜
+              Powered by <span className="text-blue-300 font-semibold">Farcaster</span> • Made with ❤️
             </p>
           </div>
         </div>
