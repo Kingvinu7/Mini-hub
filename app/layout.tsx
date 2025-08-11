@@ -6,8 +6,8 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Mini-Hub",
   description: "A simple hub to access all my Farcaster miniapps",
-  url: "https://your-mini-hub-url.vercel.app", // replace with your deployed URL
-  image: "https://cast-it-fast.vercel.app/app-icon.png", // your Mini-Hub icon or OG image
+  url: "https://mini-hub-six.vercel.app", // replace with your deployed URL
+  image: "https://mini-hub-six.vercel.app/icon.png", // your Mini-Hub icon or OG image
   author: "vinu07",
 };
 
