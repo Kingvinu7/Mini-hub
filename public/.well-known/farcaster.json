@@ -1,0 +1,32 @@
+{
+  "frame": {
+    "name": "Mini Hub",
+    "version": "1",
+    "iconUrl": "https://mini-hub-six.vercel.app/icon.png",
+    "homeUrl": "https://mini-hub-six.vercel.app",
+    "imageUrl": "https://mini-hub-six.vercel.app/prevue.png",
+    "buttonTitle": "Explore miniapps ",
+    "splashImageUrl": "https://mini-hub-six.vercel.app/splash-image.png",
+    "splashBackgroundColor": "#1a0b2e",
+    "subtitle": "Showcasing my miniapps",
+    "description": "A simple hub to access all my Farcaster miniapps ",
+    "primaryCategory": "social",
+    "tags": [
+      "miniapps",
+      "trending",
+      "base",
+      "farcaster",
+      "minihub"
+    ],
+    "tagline": "check my created miniapps",
+    "ogTitle": "Minihub",
+    "ogDescription": "explore my miniapps in the mini hub of my miniapps",
+    "ogImageUrl": "https://mini-hub-six.vercel.app/prevue.png",
+    "castShareUrl": "https://mini-hub-six.vercel.app"
+  },
+  "accountAssociation": {
+    "header": "eyJmaWQiOjI1MDg2OSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDQwZUY3Qzc1YjRlRDBkQjY3N0MzN2VjODkxODM0QjI1MDk1ODI1ZDYifQ",
+    "payload": "eyJkb21haW4iOiJtaW5pLWh1Yi1zaXgudmVyY2VsLmFwcCJ9",
+    "signature": "MHg5ZWY4MWFiZWM2YTJjZjkyMzExOGM4ZDUwMzcyYjIxOTVkYjRhOWYxYzkxZDMxYzVjZGFlMWM0MWI5OGExYWE2MjUzNDM5ZmQxNDNkMmU4MmMyYmM5MDYyODNhNDBjMjU1OTBkOWRjMmU1MzM5OGQ1NjgwNGU4MjdlZGM5ODhhZjFi"
+  }
+}
