@@ -64,8 +64,8 @@ export default function Home() {
           setShowExplosion(true);
           setTimeout(() => {
             setAppReady(true);
-          }, 1200);
-        }, 300);
+          }, 2000); // Increased from 1200ms to 2000ms
+        }, 500); // Increased delay from 300ms to 500ms
       } catch (error) {
         console.error('SDK initialization failed:', error);
         setAppReady(true);
@@ -96,7 +96,7 @@ export default function Home() {
                                   '-100px -100px',
               }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-glitch"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-glitch opacity-80"></div>
             </div>
           ))}
           
@@ -273,30 +273,30 @@ export default function Home() {
           100% { opacity: 0; transform: scale(1.5); }
         }
         @keyframes glitch {
-          0%, 100% { transform: translateX(0); opacity: 0.7; }
-          25% { transform: translateX(-2px); opacity: 0.9; }
-          50% { transform: translateX(2px); opacity: 0.5; }
-          75% { transform: translateX(-1px); opacity: 0.8; }
+          0%, 100% { transform: translateX(0); opacity: 0.9; }
+          25% { transform: translateX(-2px); opacity: 1; }
+          50% { transform: translateX(2px); opacity: 0.8; }
+          75% { transform: translateX(-1px); opacity: 1; }
         }
         @keyframes explode-1 {
           0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
-          100% { transform: translate(-300px, -300px) scale(0.2) rotate(360deg); opacity: 0; }
+          100% { transform: translate(-300px, -300px) scale(0.3) rotate(270deg); opacity: 0; }
         }
         @keyframes explode-2 {
           0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
-          100% { transform: translate(300px, -300px) scale(0.2) rotate(-360deg); opacity: 0; }
+          100% { transform: translate(300px, -300px) scale(0.3) rotate(-270deg); opacity: 0; }
         }
         @keyframes explode-3 {
           0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
-          100% { transform: translate(-350px, 250px) scale(0.15) rotate(540deg); opacity: 0; }
+          100% { transform: translate(-350px, 250px) scale(0.25) rotate(360deg); opacity: 0; }
         }
         @keyframes explode-4 {
           0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
-          100% { transform: translate(350px, 250px) scale(0.15) rotate(-540deg); opacity: 0; }
+          100% { transform: translate(350px, 250px) scale(0.25) rotate(-360deg); opacity: 0; }
         }
         @keyframes explode-5 {
           0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
-          100% { transform: translate(0px, 400px) scale(0.1) rotate(720deg); opacity: 0; }
+          100% { transform: translate(0px, 400px) scale(0.2) rotate(450deg); opacity: 0; }
         }
         .animate-float {
           animation: float 6s ease-in-out infinite;
@@ -318,25 +318,25 @@ export default function Home() {
           animation: fade-in-content 1s ease-out;
         }
         .animate-explode-1 {
-          animation: explode-1 1s ease-out forwards;
+          animation: explode-1 1.8s ease-out forwards;
         }
         .animate-explode-2 {
-          animation: explode-2 1s ease-out forwards;
+          animation: explode-2 1.8s ease-out forwards;
         }
         .animate-explode-3 {
-          animation: explode-3 1s ease-out forwards;
+          animation: explode-3 1.8s ease-out forwards;
         }
         .animate-explode-4 {
-          animation: explode-4 1s ease-out forwards;
+          animation: explode-4 1.8s ease-out forwards;
         }
         .animate-explode-5 {
-          animation: explode-5 1s ease-out forwards;
+          animation: explode-5 1.8s ease-out forwards;
         }
         .animate-flash-center {
-          animation: flash-center 1s ease-out forwards;
+          animation: flash-center 1.5s ease-out forwards;
         }
         .animate-crack {
-          animation: crack 0.6s ease-out forwards;
+          animation: crack 1s ease-out forwards;
         }
         .animate-glitch {
           animation: glitch 0.3s ease-in-out infinite;
